@@ -403,6 +403,8 @@ class TestOmniVisionCompanionV0151(unittest.TestCase):
                 self.assertEqual(st, 200)
                 self.assertTrue(m["ok"])
                 self.assertEqual(m["lockedHwnd"], 1001)
+                # 真实 Windows 下前台窗口不是测试窗 → 显式覆盖，否则焦点锁会拦掉干跑
+                omnivisiond.SERVICE.companion.driver._foreground_override = 1001
 
                 st, cs = req("POST", "/companion/contact_sheet", {})
                 self.assertEqual(st, 200)
