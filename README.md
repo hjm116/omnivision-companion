@@ -76,6 +76,47 @@ powershell -ExecutionPolicy Bypass -File install.ps1 `
 
 ---
 
+---
+
+## 🩺 安装失败排查（按报错对号入座）
+
+| 现象 | 原因 | 处理 |
+|---|---|---|
+| `profile 的 package.json 写入自检失败…已恢复备份` | 写入被拦截 / 磁盘满 / 杀软 | 看 `.omnivision-bak` 是否已恢复；确认磁盘空间后重跑 |
+| `pnpm install 失败` | 网络 / 镜像 | 检查网络重跑；或手动在 `<DshHome>\profiles\desktop` 跑一遍 `node pnpm.cjs install` |
+| `找不到 DSH 目录` | DSH 未启动过，或路径不对 | 先打开一次 DSH；或用 `-DshHome` 指定 |
+| `找不到 DSH 自带的 node/pnpm` | DSH 版本太老（< 0.2.2） | 升级 DSH |
+| `找不到 Python 3.10–3.12` | 未装 Python | 装 3.10/3.11/3.12（勾选 Add to PATH），或用 `-Python` 指定 |
+| `SenseVoiceSmall 未能自动下载` | 网络 / 镜像不可达 | 不影响基础功能；可 `-SkipSenseVoiceModel`，或手动放模型（见下） |
+| `9882 / 9883 端口被占用` | 其他程序占用 | 释放端口，或改配置 |
+| 装完工具没出现 | 未完全重启 DSH | 连系统托盘一起退出再打开 |
+
+**手动放 SenseVoice 模型**（离线 / 下载失败时）：
+
+```
+<DataDir>\models\sense-voice\model.int8.onnx   ← 约 228 MB
+<DataDir>\models\sense-voice\tokens.txt        ← 约 0.3 MB
+```
+
+- 国内镜像（推荐）：
+  - `https://hf-mirror.com/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/resolve/main/model.int8.onnx`
+  - `https://hf-mirror.com/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/resolve/main/tokens.txt`
+- 海外：把 `hf-mirror.com` 换成 `huggingface.co`，路径相同。
+
+## 🧪 自测（tests/）
+
+不需要 Windows 或 GPU（跨平台离线冒烟），改完代码先跑这个：
+
+```bash
+# Python 侧：companion 逻辑 + 安全护栏 + OCR 契约 + 音频降级
+python tests/test_companion_smoke.py
+
+# JS 侧：host.js / client.js 词法 + 结构完整性
+node tests/test_host_syntax.mjs
+```
+
+全 PASS 再提 PR。这两个脚本也是 CI 的入口（可加 GitHub Actions）。
+
 ## 🎮 常用斜杠命令与工具速查
 
 | 命令 / 工具 | 说明 |
