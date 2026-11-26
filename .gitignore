@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# 运行时产物（安装后生成，不应提交）
+omnivision.config.json
+frames/
+logs/
+out/
+_capture/
+models/sense-voice/
+
+# 调试/临时
+*.log
+*.tmp
+*.bak
+.omnivision-bak
+
+# 编辑器/系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
