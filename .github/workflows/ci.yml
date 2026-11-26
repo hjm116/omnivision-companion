@@ -21,6 +21,9 @@ jobs:
         run: |
           python -c "import json,glob,sys; files=glob.glob('presets/**/*.json',recursive=True); [json.load(open(f,encoding='utf-8')) for f in files]; print(f'presets OK ({len(files)} files)')"
 
+      - name: Install test deps
+        run: pip install numpy pillow
+
       - name: Python smoke (companion / safety / OCR contract)
         run: python tests/test_companion_smoke.py
 
