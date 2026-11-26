@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { dirname, join } from 'node:path'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repo = join(here, '..')
 
 // 1. Dynamically import host.js to verify valid ESM syntax and exported helpers
-const hostMod = await import(join(repo, 'plugin', 'host.js'))
+const hostMod = await import(pathToFileURL(join(repo, 'plugin', 'host.js')).href)
 assert.equal(hostMod.name, 'omnivision')
 assert.equal(typeof hostMod.apply, 'function')
 assert.equal(hostMod.isSilentReply('[SILENT]'), true)
