@@ -1,8 +1,19 @@
 # OmniVision Companion (`@local/dsh-omnivision` v0.15.3)
 
-面向 **DeepSeek Harness (DSH)** 与 **DeepSeek-V4.1-Flash 原生多模态** 的开源全感官桌面伴侣底座——让你的鲸鱼娘真正拥有**看屏、听剧、陪玩/单机代打、鼠标穿透弹幕**能力，同时 100% 保持你原有的人设与说话风格。
+面向 **DeepSeek Harness (DSH)** 与 **DeepSeek-V4.1-Flash 原生多模态** 的开源全感官桌面伴侣底座——让你的鲸鱼娘真正拥有**看屏、听剧、陪玩/单机代打、弹幕字幕（预览）**能力，同时 100% 保持你原有的人设与说话风格。
 
 > 默认发行包仅约 **24 MB**（内置 PP-OCRv4 与 OmniParser 图标轻量模型，不含 228 MB 语音模型，按需可选下载）。
+
+### 📌 功能状态（截止 v0.15.3）
+
+| 能力 | 状态 |
+|---|---|
+| 看屏（OCR/UIA/图标/局部放大） | ✅ 完整 |
+| 陪追剧（宫格图 + SenseVoice 转写 + `[SILENT]`） | ✅ 完整 |
+| 单机游戏：快反射 / 按键驱动 / F12 急停 | ✅ 完整（快反射默认干跑） |
+| **鼠标穿透弹幕** | ⚠️ **预览**：仅面板提示，接会话回复流在 v0.16.0 |
+| **`presets/tts/` 语音发声** | ⚠️ **模板**：配置模板已提供，真实接入在 v0.16.0 |
+
 
 ---
 
@@ -76,8 +87,6 @@ powershell -ExecutionPolicy Bypass -File install.ps1 `
 
 ---
 
----
-
 ## 🩺 安装失败排查（按报错对号入座）
 
 | 现象 | 原因 | 处理 |
@@ -88,7 +97,7 @@ powershell -ExecutionPolicy Bypass -File install.ps1 `
 | `找不到 DSH 自带的 node/pnpm` | DSH 版本太老（< 0.2.2） | 升级 DSH |
 | `找不到 Python 3.10–3.12` | 未装 Python | 装 3.10/3.11/3.12（勾选 Add to PATH），或用 `-Python` 指定 |
 | `SenseVoiceSmall 未能自动下载` | 网络 / 镜像不可达 | 不影响基础功能；可 `-SkipSenseVoiceModel`，或手动放模型（见下） |
-| `9882 / 9883 端口被占用` | 其他程序占用 | 释放端口，或改配置 |
+| `9882`（本地语音 SoVITS）或 `9883`（本地语义 llama-server）被占用 | 其他程序占用 | 释放端口或改配置；**主 sidecar 用 `--port 0` 随机端口，不会冲突** |
 | 装完工具没出现 | 未完全重启 DSH | 连系统托盘一起退出再打开 |
 
 **手动放 SenseVoice 模型**（离线 / 下载失败时）：
@@ -138,7 +147,7 @@ node tests/test_host_syntax.mjs
 
 欢迎提交 PR 补充：
 * `presets/games/*.json`：各类单机游戏的 ROI 快反射规则模板
-* `presets/tts/*.json`：Edge-TTS / GPT-SoVITS / Fish-Speech / CosyVoice 语音后端配置模板
+* `presets/tts/*.json`：Edge-TTS / GPT-SoVITS / Fish-Speech / CosyVoice 语音后端**配置模板（v0.16 接入真实发声，当前仅模板）**
 
 ## 卸载
 1. 删除你的数据目录（默认 `~/.dsh/omnivision` 或你指定的 `-DataDir` / `-PluginDir`）；
