@@ -329,7 +329,12 @@ Info "跑 pnpm install（第一次可能要几十秒）"
 Push-Location $profileDir
 try {
   & $nodeExe.FullName $pnpmJs.FullName install
-  if ($LASTEXITCODE -ne 0) { Fail "pnpm install 失败。检查网络后重跑本脚本。" }
+if ($LASTEXITCODE -ne 0) {
+  if (Test-Path $bakPath) { Copy-Item $bakPath $pkgPath -Force
+    Write-Host "  [回滚] pnpm 失败，已恢复 profile 备份 $bakPath" -ForegroundColor Yellow
+  }
+  Fail "pnpm install 失败，已回滚 profile。检查网络后重跑本脚本。"
+}
 } finally {
   Pop-Location
 }
