@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate preset JSON
+        run: |
+          python -c "import json,glob,sys; files=glob.glob('presets/**/*.json',recursive=True); [json.load(open(f,encoding='utf-8')) for f in files]; print(f'presets OK ({len(files)} files)')"
+
+      - name: Python smoke (companion / safety / OCR contract)
+        run: python tests/test_companion_smoke.py
+
+      - name: JS syntax (host.js / client.js)
+        run: node tests/test_host_syntax.mjs
