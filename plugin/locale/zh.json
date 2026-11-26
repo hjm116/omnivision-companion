@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "通用视觉层",
+    "description": "截一帧就得到「场景 + 带坐标的文字元素 + 变化区域」，同一界面再看不花 OCR；点按交给 cv_act。",
+    "detail": "docs/DETAIL.md"
+  }
+}

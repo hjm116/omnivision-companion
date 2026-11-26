@@ -1,0 +1,39 @@
+{
+  "name": "回合制 / 卡牌策略陪打预设",
+  "genre": "turn_based",
+  "description": "适合回合制 JRPG 或卡牌游戏，低频监控，主要由 DeepSeek-V4.1-Flash 慢系统决策出牌。",
+  "fps": 10,
+  "rules": [
+    {
+      "id": "skip_victory_banner",
+      "name": "结算高亮提示自动确认（默认需手动启用 auto_confirm 模式）",
+      "modes": [
+        "auto_confirm"
+      ],
+      "roi": [
+        0.42,
+        0.78,
+        0.16,
+        0.08
+      ],
+      "rgbMin": [
+        210,
+        180,
+        60
+      ],
+      "rgbMax": [
+        255,
+        245,
+        160
+      ],
+      "operator": "gt",
+      "threshold": 0.45,
+      "cooldownMs": 2500,
+      "action": {
+        "type": "tap",
+        "key": "enter",
+        "durationMs": 70
+      }
+    }
+  ]
+}

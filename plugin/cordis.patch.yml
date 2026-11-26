@@ -1,0 +1,3 @@
+- insert:
+    - id: omnivision
+      name: '@local/dsh-omnivision'

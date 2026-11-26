@@ -1,0 +1,71 @@
+{
+  "name": "通用低血自动喝药 / 紧急闪避模板",
+  "genre": "action_rpg",
+  "description": "检测左下角血条 ROI 红色像素占比低于 30% 时自动按 Q 喝药（冷却 4 秒）；dodge_priority 模式下自动连按 Space 闪避。",
+  "fps": 20,
+  "rules": [
+    {
+      "id": "low_hp_potion",
+      "name": "低血量喝药",
+      "modes": [
+        "normal",
+        "dodge_priority"
+      ],
+      "roi": [
+        0.05,
+        0.86,
+        0.22,
+        0.04
+      ],
+      "rgbMin": [
+        165,
+        0,
+        0
+      ],
+      "rgbMax": [
+        255,
+        85,
+        85
+      ],
+      "operator": "lt",
+      "threshold": 0.3,
+      "cooldownMs": 4000,
+      "action": {
+        "type": "tap",
+        "key": "q",
+        "durationMs": 60
+      }
+    },
+    {
+      "id": "panic_dodge",
+      "name": "闪避优先模式自动翻滚",
+      "modes": [
+        "dodge_priority"
+      ],
+      "roi": [
+        0.4,
+        0.4,
+        0.2,
+        0.2
+      ],
+      "rgbMin": [
+        200,
+        20,
+        20
+      ],
+      "rgbMax": [
+        255,
+        95,
+        95
+      ],
+      "operator": "gt",
+      "threshold": 0.18,
+      "cooldownMs": 1200,
+      "action": {
+        "type": "tap",
+        "key": "space",
+        "durationMs": 50
+      }
+    }
+  ]
+}

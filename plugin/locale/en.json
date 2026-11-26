@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "OmniVision layer",
+    "description": "One frame yields scene, on-screen text elements with coordinates, and changed regions; repeat views skip OCR. Clicking stays with cv_act.",
+    "detail": "docs/DETAIL.md"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "本地 GPT-SoVITS 鲸鱼娘专属音色接口",
+  "provider": "http-tts",
+  "endpoint": "http://127.0.0.1:9880/tts",
+  "method": "POST",
+  "skipSilentToken": "[SILENT]",
+  "bargeInInterrupt": true,
+  "payloadTemplate": {
+    "text": "{{text}}",
+    "text_lang": "zh",
+    "ref_audio_path": "voices/whale_ref.wav",
+    "prompt_lang": "zh",
+    "prompt_text": "参考音频对应的台词文本",
+    "streaming_mode": true
+  }
+}

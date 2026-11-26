@@ -1,0 +1,7 @@
+{
+  "name": "视觉小说 / Galgame 陪玩模板",
+  "genre": "visual_novel",
+  "description": "配合 watch 或 game_turn 模式一起看剧情、讨论选项；按需在 auto_read 模式下自动翻页。",
+  "fps": 8,
+  "rules": []
+}

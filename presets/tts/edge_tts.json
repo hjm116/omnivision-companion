@@ -1,0 +1,8 @@
+{
+  "name": "Edge-TTS 零配置免费语音",
+  "provider": "edge-tts",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "rate": "+5%",
+  "skipSilentToken": "[SILENT]",
+  "bargeInInterrupt": true
+}
